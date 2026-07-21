@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Windows;
+using static HashCracker.BruteForce;
 using static HashCracker.HashStringConvert;
 
 namespace HashCracker
@@ -10,10 +13,16 @@ namespace HashCracker
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Start_Click(object sender, RoutedEventArgs e)
         {
-            HashStringConvert HSC = new HashStringConvert();
-            TBEncodedHash.Text = HSC.StringToHash(TBxInput.Text);
+            HashStringConvert Converter = new HashStringConvert();
+            TBEncodedHash.Text = Converter.StringToHash(TBxInput.Text);
+        }
+
+        private void BruteForce_Click(object sender, RoutedEventArgs e)
+        {
+            BruteForce bruteForce = new BruteForce();
+            TBEncodedHash.Text = bruteForce.ReadBruteForceFile().Count.ToString();
         }
     }
 }

@@ -10,10 +10,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="65*"/>
             <ColumnDefinition Width="29*"/>
-            <ColumnDefinition Width="706*"/>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="629*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Name="TBxInput" HorizontalAlignment="Left" Margin="218,217,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="176" Grid.Column="2"/>
-        <Button Grid.Column="2" Content="Button" HorizontalAlignment="Left" Margin="286,283,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.446,1.069" Click="Button_Click"/>
-        <TextBlock Name="TBEncodedHash" HorizontalAlignment="Left" Margin="10,351,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="780" Grid.ColumnSpan="3" Height="73"/>
+        <TextBox Name="TBxInput" HorizontalAlignment="Left" Margin="141,217,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="176" Grid.Column="3"/>
+        <Button Name="Start" Grid.Column="3" Content="Start" HorizontalAlignment="Left" Margin="141,284,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.446,1.069" Click="Start_Click" Width="60"/>
+        <TextBlock Name="TBEncodedHash" HorizontalAlignment="Left" Margin="10,351,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="780" Grid.ColumnSpan="4" Height="73"/>
+        <Button Name="BruteForce" Grid.Column="3" Content="BruteForce" HorizontalAlignment="Left" Margin="276,294,0,0" VerticalAlignment="Top" Click="BruteForce_Click"/>
     </Grid>
 </Window>
