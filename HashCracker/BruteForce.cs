@@ -32,7 +32,7 @@ namespace HashCracker
                     return line;
                 }
             }
-            return "Error";
+            return "String not found in BruteForce";
         }
     }
 }
