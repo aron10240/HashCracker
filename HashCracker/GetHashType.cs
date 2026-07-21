@@ -16,17 +16,28 @@ namespace HashCracker
             {
                 anzahlCharacter++;
             }
-            
-            // Hashtyp: SHA256
-            if(anzahlCharacter == 64)
-            {
-                return HashTyp.SHA256;
-            }
+
             // Hashtyp: SHA1
             if (anzahlCharacter == 40)
             {
                 return HashTyp.SHA1;
             }
+            // Hashtyp: SHA256
+            else if (anzahlCharacter == 64)
+            {
+                return HashTyp.SHA256;
+            }
+            // Hashtyp: SHA512
+            else if (anzahlCharacter == 128)
+            {
+                return HashTyp.SHA512;
+            }
+            // Hashtyp: MD5
+            else if (anzahlCharacter == 32)
+            {
+                return HashTyp.MD5;
+            }
+
             return HashTyp.Null;
         }
     }

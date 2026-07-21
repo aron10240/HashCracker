@@ -3,8 +3,10 @@
 enum HashTyp
 {
     Null,
+    SHA1,
     SHA256,
-    SHA1
+    SHA512,
+    MD5
 }
 
 namespace HashCracker
@@ -18,37 +20,48 @@ namespace HashCracker
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            HashStringConvert Converter = new HashStringConvert();
-            TBEncodedHash.Text = Converter.StringToHash(TBxInput.Text);
+            //HashStringConvert Converter = new HashStringConvert();
+            //TBEncodedHash.Text = Converter.StringToHashSHA256(TBxInput.Text);
         }
 
         private void BruteForce_Click(object sender, RoutedEventArgs e)
         {
-            TBWhichHash.Text = "Hash: " + GetTypOfHash(TBxInput.Text);
-
-            BruteForce bruteForce = new BruteForce();
-            TBEncodedHash.Text = "Result: " + bruteForce.execute(TBxInput.Text);
+            GetTypOfHash(TBxInput.Text);
         }
 
-        private string GetTypOfHash(string input)
+        private void GetTypOfHash(string input)
         {
             GetHashType getHashType = new GetHashType();
 
             HashTyp hashtyp = getHashType.execute(input);
             string result = "";
-            if (hashtyp == HashTyp.SHA256)
+            BruteForce bruteForce = new BruteForce();
+
+            if (hashtyp == HashTyp.SHA1)
             {
+                TBEncodedHash.Text = "Result: " + bruteForce.SHA1(input);
+                result = "SHA1";
+            }
+            else if (hashtyp == HashTyp.SHA256)
+            {
+                TBEncodedHash.Text = "Result: " + bruteForce.SHA256(input);
                 result = "SHA256";
             }
-            else if (hashtyp == HashTyp.SHA1)
+            else if (hashtyp == HashTyp.SHA512)
             {
-                result = "SHA1";
+                TBEncodedHash.Text = "Result: " + bruteForce.SHA512(input);
+                result = "SHA512";
+            }
+            else if (hashtyp == HashTyp.MD5)
+            {
+                TBEncodedHash.Text = "Result: " + bruteForce.MD5(input);
+                result = "MD5";
             }
             else if (hashtyp == HashTyp.Null)
             {
                 result = "Not recognizable";
             }
-            return result;
+            TBWhichHash.Text = "Hash: " + result;
         }
     }
 }
