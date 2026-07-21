@@ -1,22 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
+﻿using System.IO;
 namespace HashCracker
 {
     class BruteForce
     {
-        public List<string> ReadBruteForceFile()
+        private List<string> GetBruteForceFileinStringList()
         {
             List<string> stringList = new List<string> { };
             var lines = File.ReadLines(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Source", "10k-most-common.txt")));
 
-            foreach(var line in lines)
+            foreach(string line in lines)
             {
                 stringList.Add(line);
             }
             return stringList;
+        }
+
+        public string execute(string input)
+        {
+            HashStringConvert Converter = new HashStringConvert();
+            List<string> stringList = GetBruteForceFileinStringList();
+
+            foreach (string line in stringList)
+            {
+                string hashLine = Converter.StringToHash(line);
+                if (hashLine != input)
+                {
+                    continue;
+                }
+                else
+                {
+                    return line;
+                }
+            }
+            return "Error";
         }
     }
 }

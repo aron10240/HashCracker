@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
-using System.Windows;
-using static HashCracker.BruteForce;
-using static HashCracker.HashStringConvert;
+﻿using System.Windows;
 
 namespace HashCracker
 {
@@ -22,7 +18,7 @@ namespace HashCracker
         private void BruteForce_Click(object sender, RoutedEventArgs e)
         {
             BruteForce bruteForce = new BruteForce();
-            TBEncodedHash.Text = bruteForce.ReadBruteForceFile().Count.ToString();
+            TBEncodedHash.Text = bruteForce.execute(TBxInput.Text);
         }
     }
 }

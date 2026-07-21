@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
-using static System.Net.Mime.MediaTypeNames;
+﻿using System.Security.Cryptography;
 
 namespace HashCracker
 {
@@ -16,8 +12,7 @@ namespace HashCracker
             byte[] hashBytes = sha.ComputeHash(textBytes);
 
             string hash = BitConverter.ToString(hashBytes).Replace("-", String.Empty);
-
-            return hash;
+            return hash.ToLower();
         }
     }
 }
