@@ -16,9 +16,9 @@
             <ColumnDefinition Width="32*"/>
         </Grid.ColumnDefinitions>
         <TextBox Name="TBxInput" Background="White" HorizontalAlignment="Left" Margin="2,47,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="328" Grid.ColumnSpan="2" Height="18" Grid.Column="2"/>
-        <Button Name="Start" Grid.Column="3" Content="BruteForce-Random" HorizontalAlignment="Left" Margin="151,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.446,1.069" Click="Start_Click" Width="137"/>
+        <Button Name="SimpleBruteForce" Grid.Column="3" Content="Simple Brute-Force" HorizontalAlignment="Left" Margin="151,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.446,1.069" Click="SimpleBruteForce_Click" Width="137"/>
         <TextBlock Name="TBEncodedHash" Foreground="White" HorizontalAlignment="Left" Margin="10,146,0,0" TextWrapping="Wrap" Text="Result: " VerticalAlignment="Top" Width="414" Grid.ColumnSpan="5" Height="21"/>
-        <Button Name="BruteForce" Grid.Column="2" Content="BruteForce-Dictionary" HorizontalAlignment="Left" Margin="2,83,0,0" VerticalAlignment="Top" Click="BruteForce_Click" Grid.ColumnSpan="2" Width="151"/>
+        <Button Name="DictionaryBruteForce" Grid.Column="2" Content="Dictionary Brute-Force" HorizontalAlignment="Left" Margin="2,83,0,0" VerticalAlignment="Top" Click="DictionaryBruteForce_Click" Grid.ColumnSpan="2" Width="151"/>
         <Label Foreground="White" Grid.Column="2" Content="Enter Hash" HorizontalAlignment="Left" Margin="0,21,0,0" VerticalAlignment="Top" Width="330" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="TBWhichHash" Foreground="White" HorizontalAlignment="Left" Margin="10,120,0,0" TextWrapping="Wrap" Text="Hash: " VerticalAlignment="Top" Width="414" Grid.ColumnSpan="5" Height="21"/>
     </Grid>

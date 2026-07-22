@@ -1,7 +1,7 @@
 ﻿using System.IO;
 namespace HashCracker
 {
-    class BruteForce
+    class BruteForceDictionary
     {
         private List<string> GetBruteForceFileinStringList()
         {
@@ -92,6 +92,51 @@ namespace HashCracker
                 }
             }
             return "String not found in BruteForce";
+        }
+    }
+
+    class BruteForceSimple
+    {
+        private string hash;
+
+        public BruteForceSimple(string input)
+        {
+            hash = input;
+        }
+
+        public string SHA1()
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+
+            for (int length = 1; length <= 10; length++)
+            {
+                string result = TryAllCombinationsSHA1(chars, length, "");
+                if (!string.IsNullOrEmpty(result))
+                    return result;
+            }
+            return "";
+        }
+
+        private string TryAllCombinationsSHA1(string chars, int length, string current)
+        {
+            if (current.Length == length)
+            {
+                HashStringConvert Converter = new HashStringConvert();
+                string hashLine = Converter.StringToHashSHA1(current);
+
+                if (hashLine == hash)
+                    return current;
+
+                return "";
+            }
+
+            foreach (char c in chars)
+            {
+                string result = TryAllCombinationsSHA1(chars, length, current + c);
+                if (!string.IsNullOrEmpty(result))
+                    return result;
+            }
+            return "";
         }
     }
 }
