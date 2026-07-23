@@ -15,78 +15,35 @@ namespace HashCracker
             return stringList;
         }
 
-        public string SHA1(string input)
+        public string execute(string input, HashTyp hashTyp)
         {
             HashStringConvert Converter = new HashStringConvert();
             List<string> stringList = GetBruteForceFileinStringList();
 
-            foreach (string line in stringList)
+            Func<string, string> hashFunktion = Converter.StringToHashSHA1;
+            switch(hashTyp)
             {
-                string hashLine = Converter.StringToHashSHA1(line);
-                if (hashLine != input)
-                {
-                    continue;
-                }
-                else
-                {
-                    return line;
-                }
-            }
-            return "String not found in BruteForce";
-        }
 
-        public string SHA256(string input)
-        {
-            HashStringConvert Converter = new HashStringConvert();
-            List<string> stringList = GetBruteForceFileinStringList();
-
-            foreach (string line in stringList)
-            {
-                string hashLine = Converter.StringToHashSHA256(line);
-                if (hashLine != input)
-                {
-                    continue;
-                }
-                else
-                {
-                    return line;
-                }
-            }
-            return "String not found in BruteForce";
-        }
-        public string SHA512(string input)
-        {
-            HashStringConvert Converter = new HashStringConvert();
-            List<string> stringList = GetBruteForceFileinStringList();
+                case HashTyp.SHA1:
+                    hashFunktion = Converter.StringToHashSHA1;
+                        break;
+                case HashTyp.SHA256:
+                    hashFunktion = Converter.StringToHashSHA256;
+                    break;
+                case HashTyp.SHA512:
+                    hashFunktion = Converter.StringToHashSHA512;
+                    break;
+                case HashTyp.MD5:
+                    hashFunktion = Converter.StringToHashMD5;
+                    break;
+                default: 
+                    //
+                    break;
+            };
 
             foreach (string line in stringList)
             {
-                string hashLine = Converter.StringToHashSHA512(line);
-                if (hashLine != input)
-                {
-                    continue;
-                }
-                else
-                {
-                    return line;
-                }
-            }
-            return "String not found in BruteForce";
-        }
-
-        public string MD5(string input)
-        {
-            HashStringConvert Converter = new HashStringConvert();
-            List<string> stringList = GetBruteForceFileinStringList();
-
-            foreach (string line in stringList)
-            {
-                string hashLine = Converter.StringToHashMD5(line);
-                if (hashLine != input)
-                {
-                    continue;
-                }
-                else
+                if (hashFunktion(line) == input)
                 {
                     return line;
                 }
@@ -98,41 +55,46 @@ namespace HashCracker
     class BruteForceSimple
     {
         private string hash;
-
-        public BruteForceSimple(string input)
+        private HashTyp hashTyp;
+        private string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        public BruteForceSimple(string input, HashTyp hashTyp)
         {
             hash = input;
+            this.hashTyp = hashTyp;
         }
 
-        public string SHA1()
+        public string BruteForce()
         {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+            HashStringConvert Converter = new HashStringConvert();
+
+            Func<string, string> hashFunktion = hashTyp switch
+            {
+                HashTyp.SHA1 => Converter.StringToHashSHA1,
+                HashTyp.SHA512 => Converter.StringToHashSHA512,
+                HashTyp.MD5 => Converter.StringToHashMD5,
+                _ => throw new ArgumentException("Unbekannter Hash-Typ", nameof(hashTyp))
+            };
 
             for (int length = 1; length <= 10; length++)
             {
-                string result = TryAllCombinationsSHA1(chars, length, "");
+                string result = TryAllCombinations(chars, length, "", hashFunktion, hash);
                 if (!string.IsNullOrEmpty(result))
                     return result;
             }
             return "";
         }
 
-        private string TryAllCombinationsSHA1(string chars, int length, string current)
+        private string TryAllCombinations(string chars, int length, string current, Func<string, string> hashFunktion, string hash)
         {
             if (current.Length == length)
             {
-                HashStringConvert Converter = new HashStringConvert();
-                string hashLine = Converter.StringToHashSHA1(current);
-
-                if (hashLine == hash)
-                    return current;
-
-                return "";
+                string hashLine = hashFunktion(current);
+                return hashLine == hash ? current : "";
             }
 
             foreach (char c in chars)
             {
-                string result = TryAllCombinationsSHA1(chars, length, current + c);
+                string result = TryAllCombinations(chars, length, current + c, hashFunktion, hash);
                 if (!string.IsNullOrEmpty(result))
                     return result;
             }
