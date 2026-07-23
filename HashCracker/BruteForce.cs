@@ -67,12 +67,24 @@ namespace HashCracker
         {
             HashStringConvert Converter = new HashStringConvert();
 
-            Func<string, string> hashFunktion = hashTyp switch
+            Func<string, string> hashFunktion = Converter.StringToHashSHA1;
+            switch(hashTyp)
             {
-                HashTyp.SHA1 => Converter.StringToHashSHA1,
-                HashTyp.SHA512 => Converter.StringToHashSHA512,
-                HashTyp.MD5 => Converter.StringToHashMD5,
-                _ => throw new ArgumentException("Unbekannter Hash-Typ", nameof(hashTyp))
+                case HashTyp.SHA1:
+                    hashFunktion = Converter.StringToHashSHA1;
+                    break;
+                case HashTyp.SHA256:
+                    hashFunktion = Converter.StringToHashSHA256;
+                    break;
+                case HashTyp.SHA512:
+                    hashFunktion = Converter.StringToHashSHA512;
+                    break;
+                case HashTyp.MD5:
+                    hashFunktion = Converter.StringToHashMD5;
+                    break;
+                default:
+                    //
+                    break;
             };
 
             for (int length = 1; length <= 10; length++)
