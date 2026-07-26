@@ -30,6 +30,9 @@ namespace HashCracker
                 case HashTyp.SHA256:
                     hashFunktion = Converter.StringToHashSHA256;
                     break;
+                case HashTyp.SHA384:
+                    hashFunktion = Converter.StringToHashSHA384;
+                    break;
                 case HashTyp.SHA512:
                     hashFunktion = Converter.StringToHashSHA512;
                     break;
@@ -68,24 +71,7 @@ namespace HashCracker
             HashStringConvert Converter = new HashStringConvert();
 
             Func<string, string> hashFunktion = Converter.StringToHashSHA1;
-            switch(hashTyp)
-            {
-                case HashTyp.SHA1:
-                    hashFunktion = Converter.StringToHashSHA1;
-                    break;
-                case HashTyp.SHA256:
-                    hashFunktion = Converter.StringToHashSHA256;
-                    break;
-                case HashTyp.SHA512:
-                    hashFunktion = Converter.StringToHashSHA512;
-                    break;
-                case HashTyp.MD5:
-                    hashFunktion = Converter.StringToHashMD5;
-                    break;
-                default:
-                    //
-                    break;
-            };
+           
 
             for (int length = 1; length <= 10; length++)
             {

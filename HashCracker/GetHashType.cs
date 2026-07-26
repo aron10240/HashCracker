@@ -27,6 +27,11 @@ namespace HashCracker
             {
                 return HashTyp.SHA256;
             }
+            // Hashtyp: MD5
+            else if (anzahlCharacter == 96)
+            {
+                return HashTyp.SHA384;
+            }
             // Hashtyp: SHA512
             else if (anzahlCharacter == 128)
             {

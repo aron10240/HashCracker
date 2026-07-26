@@ -27,6 +27,17 @@ namespace HashCracker
             return hash.ToLower();
         }
 
+        public string StringToHashSHA384(string password)
+        {
+            SHA384 sha = SHA384.Create();
+
+            byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(password);
+            byte[] hashBytes = sha.ComputeHash(textBytes);
+
+            string hash = BitConverter.ToString(hashBytes).Replace("-", String.Empty);
+            return hash.ToLower();
+        }
+
         public string StringToHashSHA512(string password)
         {
             SHA512 sha = SHA512.Create();
