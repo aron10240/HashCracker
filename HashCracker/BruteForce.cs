@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Security.Cryptography;
 namespace HashCracker
 {
     class BruteForceDictionary
@@ -68,31 +69,66 @@ namespace HashCracker
 
         public string BruteForce()
         {
-            HashStringConvert Converter = new HashStringConvert();
+            byte[] targetHash;
+            try
+            {
+                targetHash = Convert.FromHexString(hash);
+            }
+            catch (FormatException)
+            {
+                // Eingabe ist kein gültiger Hex-Hash
+                return "";
+            }
 
-            Func<string, string> hashFunktion = Converter.StringToHashSHA1;
-           
+            Func<byte[], byte[]> hashFunktion = SHA1.HashData;
+            switch (hashTyp)
+            {
+                case HashTyp.SHA1:
+                    hashFunktion = SHA1.HashData;
+                    break;
+                case HashTyp.SHA256:
+                    hashFunktion = SHA256.HashData;
+                    break;
+                case HashTyp.SHA384:
+                    hashFunktion = SHA384.HashData;
+                    break;
+                case HashTyp.SHA512:
+                    hashFunktion = SHA512.HashData;
+                    break;
+                case HashTyp.MD5:
+                    hashFunktion = MD5.HashData;
+                    break;
+                default:
+                    //
+                    break;
+            };
+
+            byte[] charBytes = System.Text.Encoding.UTF8.GetBytes(chars);
 
             for (int length = 1; length <= 10; length++)
             {
-                string result = TryAllCombinations(chars, length, "", hashFunktion, hash);
+                byte[] buffer = new byte[length];
+                string result = TryAllCombinations(charBytes, buffer, 0, hashFunktion, targetHash);
                 if (!string.IsNullOrEmpty(result))
                     return result;
             }
             return "";
         }
 
-        private string TryAllCombinations(string chars, int length, string current, Func<string, string> hashFunktion, string hash)
+        private string TryAllCombinations(byte[] charBytes, byte[] buffer, int position, Func<byte[], byte[]> hashFunktion, byte[] targetHash)
         {
-            if (current.Length == length)
+            if (position == buffer.Length)
             {
-                string hashLine = hashFunktion(current);
-                return hashLine == hash ? current : "";
+                byte[] hashBytes = hashFunktion(buffer);
+                return targetHash.AsSpan().SequenceEqual(hashBytes)
+                    ? System.Text.Encoding.UTF8.GetString(buffer)
+                    : "";
             }
 
-            foreach (char c in chars)
+            foreach (byte b in charBytes)
             {
-                string result = TryAllCombinations(chars, length, current + c, hashFunktion, hash);
+                buffer[position] = b;
+                string result = TryAllCombinations(charBytes, buffer, position + 1, hashFunktion, targetHash);
                 if (!string.IsNullOrEmpty(result))
                     return result;
             }
