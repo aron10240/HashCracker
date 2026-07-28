@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 
-namespace HashCracker
+namespace HashCrackerLibrary
 {
-    class HashStringConvert
+    public class HashStringConvert
     {
         public string StringToHashSHA1(string password)
         {

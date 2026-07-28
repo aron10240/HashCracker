@@ -1,15 +1,6 @@
 ﻿using System.Windows;
 using static System.Net.Mime.MediaTypeNames;
-
-enum HashTyp
-{
-    Null,
-    SHA1,
-    SHA256,
-    SHA384,
-    SHA512,
-    MD5
-}
+using HashCrackerLibrary;
 
 namespace HashCracker
 {

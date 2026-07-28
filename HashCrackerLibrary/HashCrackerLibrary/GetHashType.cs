@@ -4,9 +4,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Input;
 
-namespace HashCracker
+namespace HashCrackerLibrary
 {
-    class GetHashType
+    public class GetHashType
     {
         public HashTyp execute(string input)
         {

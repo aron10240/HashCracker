@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Security.Cryptography;
-namespace HashCracker
+namespace HashCrackerLibrary
 {
-    class BruteForceDictionary
+    public class BruteForceDictionary
     {
         private List<string> GetBruteForceFileinStringList()
         {
@@ -56,7 +56,7 @@ namespace HashCracker
         }
     }
 
-    class BruteForceSimple
+    public class BruteForceSimple
     {
         private string hash;
         private HashTyp hashTyp;
