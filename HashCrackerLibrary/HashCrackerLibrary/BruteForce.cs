@@ -7,7 +7,7 @@ namespace HashCrackerLibrary
         private List<string> GetBruteForceFileinStringList()
         {
             List<string> stringList = new List<string> { };
-            var lines = File.ReadLines(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Source", "10k-most-common.txt")));
+            var lines = File.ReadLines(Path.Combine(AppContext.BaseDirectory, "Source", "10k-most-common.txt"));
 
             foreach (string line in lines)
             {

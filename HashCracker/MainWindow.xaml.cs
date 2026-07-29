@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using static System.Net.Mime.MediaTypeNames;
 using HashCrackerLibrary;
 
 namespace HashCracker
